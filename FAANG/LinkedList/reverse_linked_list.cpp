@@ -116,48 +116,55 @@ private:
 	Node<T>* head;
 public:
 	void mnreversal(int m, int n) {
-		Node<T>* temp = head;
-		m--;
-		while(temp != NULL and --m) {
-			temp = temp->next;
+		int m1 = m;
+		Node<T>* head2 = NULL;
+		Node<T>* currentNode = head;
+		Node<T>* start = NULL, *next = NULL, *tail = NULL;
+		while (currentNode != NULL and (--m - 1)) {
+			currentNode = currentNode->next;
 		}
-		Node<T>* temp2 = temp->next;
-		int n1 = n;
-		while(temp2 != NULL and --n1) {
-			temp2 = temp2->next;
-		}
-		Node<T>* head2 = temp2;
-		temp2 = temp->next;
-		while(temp2 != NULL and --n) {
-			Node<T>* newHead = new Node<T>[1];
-			newHead->data = temp2->data;
-			newHead->next = head2;
-			head2 = newHead;
-			temp2 = temp2->next;
-		}
-		Node<T>* temp3 = head2;
-		while(temp3 != NULL) {
-			bug(temp3->data);
-			temp3 = temp3->next;
-		}
-		bug(temp->data);
-		temp->next = head2;
+		bug(currentNode->data);
+		start = currentNode;
+		// bug(start->data);
+		tail = currentNode->next;
 
+		currentNode = currentNode->next;
+		bug(tail->data);
+		while (currentNode != NULL and --n) {
+			Node<T>* newHead = new Node<T>();
+			newHead->next = head2;
+			newHead->data = currentNode->data;
+			head2 = newHead;
+			// bug(currentNode->data);
+			currentNode = currentNode->next;
+		}
+		tail = head2;
+		bug(head2->data);
+		while (tail->next != NULL) {
+			bug(tail->data);
+			tail = tail->next;
+		}
+		// bug(tail->data);
+		if (m1 > 1) {
+			// bug(currentNode->data);
+			// bug(tail->next->data);
+			tail->next = currentNode;
+			start->next = head2;
+		} else {
+			head = head2;
+		}
 	}
 	void reverse() {
-		Node<T>* head2 = NULL;
-		Node<T>* temp = head;
-		while(temp != NULL) {
-			Node<T>* newHead = new Node<T>[1];
-			newHead->data = temp->data;
-			
-			newHead->next = head2;
-			head2 = newHead;
-			
-			temp = temp->next;
+		Node<T>* current = head;
+		Node<T>* prev = NULL, * next = NULL;
+
+		while (current != NULL) {
+			next = current->next;
+			current->next = prev;
+			prev = current;
+			current = next;
 		}
-		head = head2;
-		cout << "Reversed" << endl;
+		head = prev;
 	}
 	LinkedList() {
 		this->head = NULL;
@@ -330,10 +337,10 @@ public:
 
 void solve() {
 	LinkedList<int> a;
-	for(int i = 1; i < 6; i++)
+	for (int i = 1; i < 7; i++)
 		a.add(i);
 	a.displayAll();
-	a.mnreversal(1, 5);
+	a.mnreversal(2, 4);
 	a.displayAll();
 }
 
