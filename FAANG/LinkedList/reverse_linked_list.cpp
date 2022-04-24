@@ -125,7 +125,6 @@ public:
 		}
 		bug(currentNode->data);
 		start = currentNode;
-		// bug(start->data);
 		tail = currentNode->next;
 
 		currentNode = currentNode->next;
@@ -135,7 +134,6 @@ public:
 			newHead->next = head2;
 			newHead->data = currentNode->data;
 			head2 = newHead;
-			// bug(currentNode->data);
 			currentNode = currentNode->next;
 		}
 		tail = head2;
@@ -144,10 +142,7 @@ public:
 			bug(tail->data);
 			tail = tail->next;
 		}
-		// bug(tail->data);
 		if (m1 > 1) {
-			// bug(currentNode->data);
-			// bug(tail->next->data);
 			tail->next = currentNode;
 			start->next = head2;
 		} else {
