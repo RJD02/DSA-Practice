@@ -132,7 +132,8 @@ def checkLinks(head, lists=None):
 
 
 # Example to show usage
-array = [1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]
+array = [1,null,2,null,3,null]
+
 head = makeLists(array)
 printLists(head)
 print(checkLinks(head))

@@ -23,11 +23,21 @@ class LinkedList:
 
 	def is_cyclic(self):
 		slow_pointer = fast_pointer = self.head
-
+		current_node = self.head
+		meeting_pointer = None
 		while slow_pointer.next and fast_pointer.next.next:
 			if fast_pointer == slow_pointer:
-				return slow_pointer.value
-		return None
+				meeting_pointer = slow_pointer
+				break
+		else:
+			return None
+
+		while current_node and meeting_pointer:
+			if current_node = meeting_pointer:
+				return current_node
+			current_node = current_node.next
+			meeting_pointer = meeting_pointer.next
+
 
 def main():
 	a = LinkedList(1)

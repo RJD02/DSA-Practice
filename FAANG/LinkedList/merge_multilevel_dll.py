@@ -32,15 +32,19 @@ class LinkedList:
 		print('NULL')
 
 	def merge(self):
+		if self.head is None:
+			return self.head
 		current_node = self.head
-		while current_node.next:
+		while current_node:
 			print(current_node.value)
 			if current_node.child:
 				child_node = current_node.child.head
 				while child_node.next:
 					child_node = child_node.next
 				child_node.next = current_node.next
-				current_node.next.prev = child_node
+				if current_node.next.prev is not None:
+					current_node.next.prev = child_node
+				# current_node.next.prev = child_node
 				current_node.next = current_node.child.head
 				current_node.child.head.prev = current_node
 				current_node.child = None
@@ -48,12 +52,7 @@ class LinkedList:
 			current_node = current_node.next
 			self.display()
 
-# def merge(head):
-# 	current_node = head
-# 	print(current_node.next.next.value)
-# 	while current_node:
-		
-# 	return head
+
 
 def main():
 	a = LinkedList(1)
