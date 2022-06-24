@@ -2,13 +2,13 @@
 using namespace std;
 
 int maxNetworkRank(int n, vector<vector<int>> roads) {
-	for (auto edge : roads) {
-		// cout << "Hello" << endl;
-		for(auto ele: edge) {
-			cout << ele << " ";
-		}
-		cout << endl;
-	}
+	// for (auto edge : roads) {
+	// 	// cout << "Hello" << endl;
+	// 	for(auto ele: edge) {
+	// 		cout << ele << " ";
+	// 	}
+	// 	cout << endl;
+	// }
 	int deg[n];
 	bool edges[n][n];
 	memset(deg, 0, sizeof(deg));
