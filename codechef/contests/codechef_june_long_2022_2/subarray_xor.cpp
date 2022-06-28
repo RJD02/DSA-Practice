@@ -98,7 +98,21 @@ inline ll lcm(ll a, ll b) {return (a*b)/__gcd(a,b);}
 inline int intlcm(int a, int b) {return (a*b)/__gcd(a,b);}
 inline int intpow(int a, int b) {return (int)(pow(a,b) + 0.5);}
 inline ll llpow(ll a, ll b) {return (ll)(pow(a,b) + 0.5);}
-
+	ll gcd( ll a, ll b )
+	{
+		if(b==0)
+		{
+		     return a;
+		}
+		else
+		{
+		     return gcd( b, a%b );
+		}
+	}
+	ll lcm (ll a, ll b)
+	{
+		return (a*b)/gcd(a,b);
+	}
 void solve() {
 	ll n, k;
 	cin >> n >> k;
