@@ -18,21 +18,21 @@ bool canVisitAllRooms(vector<vector<int>> rooms) {
 		q.push(source);
 		visited[source] = 1;
 
-		while(!q.empty()) {
+		while (!q.empty()) {
 			int node = q.front();
 			q.pop();
 
-			for(auto i: rooms[node]) {
-				if(!visited[i]) {
+			for (auto i : rooms[node]) {
+				if (!visited[i]) {
 					visited[i] = true;
 					q.push(i);
 				}
 			}
 		}
-	for(auto i: visited) 
-		if(i == false)
-			return false;
-	return true;		
+		for (auto i : visited)
+			if (i == false)
+				return false;
+		return true;
 	};
 
 	return bfs(0);
