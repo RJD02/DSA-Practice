@@ -102,45 +102,21 @@ inline ll llpow(ll a, ll b) {return (ll)(pow(a, b) + 0.5);}
 void solve() {
 	int n, m, k;
 	cin >> n >> m >> k;
+	um(int, int) mp;
 	vi v(n);
-	for (int i = 0; i < n; i++)
+	for(int i = 0; i < n; i++) {
 		cin >> v[i];
-	sort(all(v));
-	auto start = lower_bound(all(v), k);
-	bool exists = binary_search(all(v), k);
+		mp[v[i]]++;
+	}
 
-	if(exists) {
-		for(int i = start - v.begin() + 1; i < n; i++) {
-			if(v[i + 1] - v[i] <= 1 and v[i] > k) {
-				cout << v[i] << " ";
-				m--;
-			}
-		}
-
-		for(int i = start - v.begin() - 1; i >= 1; i--) {
-			if(v[i] - v[i - 1] <= 1 and v[i] < k) {
-				cout << v[i] << " ";
-				m--;
-			}
-		}
-	} else {
-		if(start - v.begin() - 1 == k) {
-			for(int i = start - v.begin(); i < n - 1; i++) {
-				if(v[i + 1] - v[i] <= 1 and v[i] > k) {
-					cout << v[i] << " ";
-					m--;
-				}
-			}
-		}
-		for(int i = start - v.begin() - 1; i >= 1; i--) {
-			if(v[i] - v[i - 1] <= 1 and v[i] < k) {
-				cout << v[i] << " ";
-				m--;
-			}
+	for(int i = 0; i < k; i++) {
+		if(mp[i] == 0) {
+			cout << "NO" << endl;
+			return;
 		}
 	}
 
-	if(m > 0)
+	if(m + mp[k] > n || m < k)
 		cout << "NO";
 	else
 		cout << "YES";
