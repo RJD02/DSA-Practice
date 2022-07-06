@@ -79,10 +79,10 @@ void solve() {
 	// 	cout << -1 << " " << -1 << endl;
 	// else
 	// 	cout << lowest_index << " " << highest_index << endl;
-
+    
 	int lowest_index = findLowestIndex(v, target);
 	int highest_index = findHighestIndex(v, target);
-	return {lowest_index, highest_index};
+	cout << lowest_index << " " << highest_index << endl;
 }
 
 int main() {
