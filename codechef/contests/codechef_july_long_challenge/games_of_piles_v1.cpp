@@ -102,48 +102,22 @@ inline ll llpow(ll a, ll b) {return (ll)(pow(a,b) + 0.5);}
 void solve() {
 	ll n;
 	cin >> n;
-	// bug(n);
-	// vector<vector<ll>> grid(n, vector<ll>(n, 0));
-	int grid[n + 1][n + 1] = {0};
-	ll maxSideTop = 0, maxSideBottom = 0;
-	bool lastA = false, lastB = false;
-	ll currCountA = 0, currCountB = 0;
-	ll maxSideLeft = 0, maxSideRight = 0;
+	vector<unsigned ll> a(n);
+	unsigned ll diff = 0;
 	for(ll i = 0; i < n; i++) {
-		ll a, b;
-		cin >> a >> b;
-		// cout << a << " " << b << endl;
-		if(i == 0) {
-			maxSideTop = max(maxSideTop, b - a + 1);
+		cin >> a[i];
+		if(a[i] < 2) {
+			cout << "CHEF" << endl;
+			return;
 		}
-		if(i == n - 1) {
-			maxSideBottom = max(maxSideBottom, b - a + 1);
-		}
-		if(a == 0) {
-			if(lastA == 1) {
-				currCountA++;
-				maxSideLeft = max(maxSideLeft, currCountA);
-				lastA = 1;
-			} else {
-				currCountA = 0;
-				lastA = 0;
-			}
-		}
-		if(b == n - 1) {
-			if(lastB == 1) {
-				currCountB++;
-				maxSideRight = max(maxSideRight, currCountB);
-				lastB = 1;
-			} else {
-				currCountB = 0;
-				lastB = 0;
-			}
-		}
+		diff += a[i] - 2;
 	}
-	ll ans = max(maxSideRight, maxSideBottom);
-	ans = max(ans, maxSideTop);
-	ans = max(ans, maxSideLeft);
-	cout << ans << endl;
+	// bug(diff);
+	if(diff % 2 == 0)
+		cout << "CHEFINA";
+	else
+		cout << "CHEF";
+	cout << endl;
 }
 
 int main() {
@@ -158,7 +132,7 @@ int main() {
 	cout.tie(0);
 	auto start = high_resolution_clock::now();
 	int T = 1;
-	// cin >> T;
+	cin >> T;
 	// cin.ignore(); must be there when using getline(cin, s)
 	// Flashy Wally, never forget the gifted improvisor
 	// HiToMizu, flow and power. 12th sign can be all of the elements
