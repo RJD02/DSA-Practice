@@ -121,6 +121,34 @@ void solve() {
 }
 
 int main() {
+	int t;
+	cin >> t;
+	while(t--) {
+		int n;
+		cin >> n;
+		int arr[n];
+		unordered_map<int, int> mp;
+		for(int i = 0; i < n; i++) {
+			cin >> arr[i];
+			mp[arr[i]]++;
+		}
+
+		bool okay = 1;
+		for(auto it: mp) {
+			if(it.second % it.first != 0)
+				okay = 0;
+		}
+
+		if(okay)
+			cout << "YES";
+		else
+			cout << "NO";
+		cout << endl;
+	}
+	return 0;
+}
+
+int main() {
 	//#ifndef ONLINE_JUDGE
 	//For getting input from input.txt
 	//freopen("input.txt", "r", stdin);
