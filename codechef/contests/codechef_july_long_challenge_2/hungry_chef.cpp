@@ -25,7 +25,7 @@
 #define repd(i, m, n) 	for(auto i = m; i != n; i--)
 #define FOR(i, a, b) 	for (ll i = a; i <= b; i++)
 #define RFOR(i, a, b) 	for (ll i = a; i >= b; i--)
-#define FOREACH(a, b) 	for (auto&(a) : (b)) 
+#define FOREACH(a, b) 	for (auto&(a) : (b))
 #define um(x, y) 		unordered_map<x, y>
 #define us(x) 			unordered_set<x>
 #define om(x, y)		map<x, y>
@@ -52,7 +52,7 @@
 #define minArr(a,n) 	*min_element(a,a+n)
 #define maxVec(a) 		*max_element(a.begin(), a.end())
 #define minVec(a) 		*min_element(a.begin(), a.end())
-#define present(c, x)	((c).find(x) != (c).end()) 
+#define present(c, x)	((c).find(x) != (c).end())
 #define cpresent(c, x)	(find(all((c)), (x)) != (c).end())
 #define print1(a)		for(auto x : a) cout << x.F << " " << x.S << endl
 #define print2(a,x,y)	for(int i = x; i < y; i++) cout<< a[i]<< " "; cout << endl
@@ -61,8 +61,8 @@ using namespace std;
 using namespace std::chrono;
 
 /****** Template of some basic operations *****/
-template<typename T, typename U> inline void amin(T &x, U y) { if(y < x) x = y; }
-template<typename T, typename U> inline void amax(T &x, U y) { if(x < y) x = y; }
+template<typename T, typename U> inline void amin(T &x, U y) { if (y < x) x = y; }
+template<typename T, typename U> inline void amax(T &x, U y) { if (x < y) x = y; }
 template<typename T> T logAToBaseB(T a, T b) {
 	return a > b - 1 ? 1 + logAToBaseB(a / b, b) : 0;
 }
@@ -94,29 +94,28 @@ void __f (const char* names, Arg1&& arg1, Args&&... args)
 }
 /**********************************************/
 
-inline ll lcm(ll a, ll b) {return (a*b)/__gcd(a,b);}
-inline int intlcm(int a, int b) {return (a*b)/__gcd(a,b);}
-inline int intpow(int a, int b) {return (int)(pow(a,b) + 0.5);}
-inline ll llpow(ll a, ll b) {return (ll)(pow(a,b) + 0.5);}
+inline ll lcm(ll a, ll b) {return (a * b) / __gcd(a, b);}
+inline int intlcm(int a, int b) {return (a * b) / __gcd(a, b);}
+inline int intpow(int a, int b) {return (int)(pow(a, b) + 0.5);}
+inline ll llpow(ll a, ll b) {return (ll)(pow(a, b) + 0.5);}
 
 void solve() {
 	int x, y;
 	ll n, r;
 	cin >> x >> y >> n >> r;
-	// ll z = r / x;
-	// ll a = ceil(y / (float)x);
-	// ll b = r / y;
-	// while(z - b * a + b < n)
-	// 	b--;
-	// // int normal;
-	// // if(z - b * a < 0 or b < 0) {
-	// // 	cout << -1 << endl; 
-	// // 	return;
-	// // }
-	// cout << min(n, z - b * a) << " " << b << endl;
-	int b = (r - n * x) / (y - x);
-	int z = n - b;
-	cout << z << " " << b << endl;
+	if ((r / y) >= n)
+		cout << 0 << " " << n;
+	else if ((r / x) < n)
+		cout << -1;
+	else {
+		int a = y * n;
+		int b = x - y;
+		int c = (r - a) / b;
+		if ((r - a) % b != 0)
+			c++;
+		cout << c << " " << n - c;
+	}
+	cout << endl;
 }
 
 int main() {
@@ -137,7 +136,7 @@ int main() {
 	// HiToMizu, flow and power. 12th sign can be all of the elements
 	// Backed by the largest and the farthest planets, and sun is in your name
 	// Remember, you are loved and your obsession is to be better, not perfect. Go get it.
-	while(T--) solve();
+	while (T--) solve();
 
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<milliseconds>(stop - start);
@@ -145,4 +144,3 @@ int main() {
 
 	return 0;
 }
-

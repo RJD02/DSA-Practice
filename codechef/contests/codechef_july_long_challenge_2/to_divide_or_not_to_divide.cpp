@@ -100,7 +100,17 @@ inline int intpow(int a, int b) {return (int)(pow(a,b) + 0.5);}
 inline ll llpow(ll a, ll b) {return (ll)(pow(a,b) + 0.5);}
 
 void solve() {
-	
+	ll a, b, n;
+	cin >> a >> b >> n;
+	if(a % b == 0) {
+		cout << -1 << endl;
+		return;
+	}
+	if(n % a != 0)
+		n = n + a - (n % a);
+	while(!(n % a == 0 and n % b != 0))
+		n += a;
+	cout << n << endl;
 }
 
 int main() {
