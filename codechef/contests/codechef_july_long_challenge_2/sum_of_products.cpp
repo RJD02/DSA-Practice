@@ -102,14 +102,23 @@ inline ll llpow(ll a, ll b) {return (ll)(pow(a,b) + 0.5);}
 void solve() {
 	int n;
 	cin >> n;
-	int one = 0;
-	for(int i = 0; i < n; i++) {
-		int in;
-		cin >> in;
-		if(in == 1)
-			one++;
+	vi v(n);
+	for(int i = 0; i < n; i++)
+		cin >> v[i];
+	vi a(n);
+	for(int i = n - 1; i >= 0; i--) {
+		if(v[i] == 1)
+			if(n - 1 == i)
+				a[i] = 1;
+			else
+				a[i] = 1 + a[i + 1];
+		else
+			a[i] = 0;
 	}
-	cout << one << endl;
+	ll sum = 0;
+	for(auto i: a)
+		sum += i;
+	cout << sum << endl;
 }
 
 int main() {
