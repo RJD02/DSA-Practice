@@ -25,7 +25,7 @@
 #define repd(i, m, n) 	for(auto i = m; i != n; i--)
 #define FOR(i, a, b) 	for (ll i = a; i <= b; i++)
 #define RFOR(i, a, b) 	for (ll i = a; i >= b; i--)
-#define FOREACH(a, b) 	for (auto&(a) : (b)) 
+#define FOREACH(a, b) 	for (auto&(a) : (b))
 #define um(x, y) 		unordered_map<x, y>
 #define us(x) 			unordered_set<x>
 #define om(x, y)		map<x, y>
@@ -52,7 +52,7 @@
 #define minArr(a,n) 	*min_element(a,a+n)
 #define maxVec(a) 		*max_element(a.begin(), a.end())
 #define minVec(a) 		*min_element(a.begin(), a.end())
-#define present(c, x)	((c).find(x) != (c).end()) 
+#define present(c, x)	((c).find(x) != (c).end())
 #define cpresent(c, x)	(find(all((c)), (x)) != (c).end())
 #define print1(a)		for(auto x : a) cout << x.F << " " << x.S << endl
 #define print2(a,x,y)	for(int i = x; i < y; i++) cout<< a[i]<< " "; cout << endl
@@ -61,8 +61,8 @@ using namespace std;
 using namespace std::chrono;
 
 /****** Template of some basic operations *****/
-template<typename T, typename U> inline void amin(T &x, U y) { if(y < x) x = y; }
-template<typename T, typename U> inline void amax(T &x, U y) { if(x < y) x = y; }
+template<typename T, typename U> inline void amin(T &x, U y) { if (y < x) x = y; }
+template<typename T, typename U> inline void amax(T &x, U y) { if (x < y) x = y; }
 template<typename T> T logAToBaseB(T a, T b) {
 	return a > b - 1 ? 1 + logAToBaseB(a / b, b) : 0;
 }
@@ -94,19 +94,20 @@ void __f (const char* names, Arg1&& arg1, Args&&... args)
 }
 /**********************************************/
 
-inline ll lcm(ll a, ll b) {return (a*b)/__gcd(a,b);}
-inline int intlcm(int a, int b) {return (a*b)/__gcd(a,b);}
-inline int intpow(int a, int b) {return (int)(pow(a,b) + 0.5);}
-inline ll llpow(ll a, ll b) {return (ll)(pow(a,b) + 0.5);}
+inline ll lcm(ll a, ll b) {return (a * b) / __gcd(a, b);}
+inline int intlcm(int a, int b) {return (a * b) / __gcd(a, b);}
+inline int intpow(int a, int b) {return (int)(pow(a, b) + 0.5);}
+inline ll llpow(ll a, ll b) {return (ll)(pow(a, b) + 0.5);}
 
 void solve() {
 	/*
 	Important:
-		1. Need to maximize |A - B|
-		2. A = N + x;
+		* Need to maximize |A - B|
+		* gcd(A, B) >= n
+		* A = N + x;
 			B = M - y;
 			To be correct answer: *b must be divisible by a*
-		3. Only way to maximize abs(a - b) is to choose lowest number starting from n -> m
+		* Only way to maximize abs(a - b) is to choose lowest number starting from n -> m
 		   and highest number from m -> n
 		   gcd(0, a) = a
 		   gcd(a , b) = gcd(a, b % a)
@@ -128,10 +129,49 @@ void solve() {
 		2. n = x, m = x + 1 => A = n + 1, B = m
 
 
+	Another approach:
+		Need to choose two numbers from [n, n + 1, n + 2, n + 3..... m]
+
+		Two numbers for which N is the GCD must conform to the following:
+		1. N divides them both
+		2. No number greater than N divides them both
+
+
+		Both numbers can be written as n*something
+		x = n * p1 * p2 * .... * pj
+		y = n * q1 * q2 * .... * qi
+		pn != qm
+
+		Begin with N, and multiply it by different primes to create two different numbers for which N is the GCD.
+
+		pick two numbers from a list whose gcd is greater than or equal to n
+			- while at it, try to pick from either sides as we have maximize the difference between these two numbers
 
 
 
-		
+
+		to make m % n = 0
+			m = m - (m % n) -> 5 -> 8 -> 80
+		to make m % (n + 1) = 0
+			m = m - (m % (n + 1)) -> 6 -> 6 -> 88
+		to make m % (n + 2) = 0
+			m = m - (m % (n + 2)) -> NA -> 8 -> 84
+
+
+		for(int i = n; i < m; i++) {
+			if(m - (m % i) > m - (m % i + 1))
+				continue
+			break;
+		}
+		cout << i << " " << m << endl;
+
+
+
+
+
+
+
+
 		Go from n -> m in search of A
 		Go from m -> n in search of B
 		At some mid point gcd(A, B) >= N and A, B will be in [1, m]
@@ -171,21 +211,34 @@ void solve() {
 			return {a, b}
 		}
 
-		
+
 
 
 	*/
 	ll n, m;
 	cin >> n >> m;
-	if(m % n == 0)
-		cout << n << " " << m;
-	else {
-		if(m % (n + 1) == 0)
-			cout << n + 1 << " " << m;
-		else
-			cout << n + 1 << " " << m - (m % (n + 1));
+	if(2 * n > m) {
+		cout << m << " " << m << endl;
+		return;
 	}
-	cout << endl;
+	// Logic-1: no tle - 3 AC
+	ll i = n;
+	for (i = n; i < m; ++i) {
+		if ((m - (m % i)) <= ( m - (m % (i + 1))))
+			continue;
+		break;
+	}
+	cout << i << " " << m - (m % i) << endl;
+
+	// if(m % n == 0)
+	// 	cout << n << " " << m;
+	// else {
+	// 	if(m % (n + 1) == 0)
+	// 		cout << n + 1 << " " << m;
+	// 	else
+	// 		cout << n + 1 << " " << m - (m % (n + 1));
+	// }
+	// cout << endl;
 }
 
 int main() {
@@ -206,7 +259,7 @@ int main() {
 	// HiToMizu, flow and power. 12th sign can be all of the elements
 	// Backed by the largest and the farthest planets, and sun is in your name
 	// Remember, you are loved and your obsession is to be better, not perfect. Go get it.
-	while(T--) solve();
+	while (T--) solve();
 
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<milliseconds>(stop - start);
