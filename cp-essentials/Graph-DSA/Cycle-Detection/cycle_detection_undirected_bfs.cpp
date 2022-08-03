@@ -9,13 +9,6 @@ bool solve(int n, vector<vector<int>> edges) {
 		adjList[i[1]].push_back(i[0]);
 	}
 
-	// for(auto i: adjList) {
-	// 	for(auto j: i) {
-	// 		cout << j << " ";
-	// 	}
-	// 	cout << endl;
-	// }
-
 	auto bfs = [&] (int source = 1) {
 		queue<int> q;
 		bool visited[n + 1];
@@ -27,7 +20,6 @@ bool solve(int n, vector<vector<int>> edges) {
 		while (!q.empty()) {
 			int node = q.front(); q.pop();
 			for (auto nbr : adjList[node]) {
-				cout << nbr << " ";
 				if (!visited[nbr]) {
 					q.push(nbr);
 					visited[nbr] = true;
@@ -44,8 +36,8 @@ bool solve(int n, vector<vector<int>> edges) {
 }
 
 int main() {
-	int n = 5;
-	vector<vector<int>> edges = {{1, 2}, {1, 3}, {2, 3}, {1, 4}, {4, 5}};
+	int n = 4;
+	vector<vector<int>> edges = {{1, 2}, {1, 3}, {2, 3}, {3, 4}, {2, 4}};
 	cout << solve(n, edges) << endl;
 	return 0;
 }
