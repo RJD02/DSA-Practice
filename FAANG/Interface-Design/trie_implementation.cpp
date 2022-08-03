@@ -59,7 +59,6 @@ public:
 		while (i < (int)word.size()) {
 			bool ok = false;
 			for (auto child : temp->children) {
-				
 				if (child->letter == word[i]) {
 					// bug(child->letter);
 					temp = child; ok = true;
