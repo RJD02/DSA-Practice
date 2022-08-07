@@ -1,29 +1,45 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
+#define int long long int
+
 using namespace std;
 
-#define ll long long int
+string s;
+vector<int> memo;
 
-void solve() {
-	string s;
-	cin >> s;
-	while(s != "0") {
-		int n = s.size();
-		int dp[n];
-		dp[n - 1] = 1;
-		for(int i = n - 3; i >= 0; i--) {
-			int temp = (s[i + 1] - '0') * 10 + s[i + 2] - '0';
-			dp[i] = dp[i + 1];
-			if(temp >= 1 and temp <= 26) {
-				dp[i] += dp[i + 2];
-				// cout << temp << endl;
-			}
-		}
-		cout << dp[0] << endl;
-		cin >> s;
+int dp(int i) {
+
+	if (i == s.size()) return 1;
+
+	if (memo[i] != -1) return memo[i];
+
+	int ans = 0;
+	if (s[i] >= '1' && s[i] <= '9') {
+		ans += dp(i + 1);
 	}
+
+	if (i + 1 < s.size() && (s[i] == '1')) {
+		ans += dp(i + 2);
+	}
+
+	if (i + 1 < s.size() && (s[i] == '2' && s[i + 1] <= '6')) {
+		ans += dp(i + 2);
+	}
+
+	return memo[i] = ans;
 }
 
-int main() {
-	solve();
-	return 0;
+int32_t main() {
+
+	while (1) {
+		cin >> s;
+		if (s[0] == '0') break;
+
+		memo.clear();
+		memo.resize(s.size(), -1);
+
+		cout << dp(0) << '\n';
+
+	}
+
+
 }
