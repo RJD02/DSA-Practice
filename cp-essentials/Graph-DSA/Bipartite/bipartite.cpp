@@ -17,35 +17,70 @@ Constraints:
 
 */
 
-bool dfs_helper(vector<vector<int>> graph, int node, int parent, int *visited, int color) {
-	visited[node] = 1; // 1 or 2.. Both mean visited
-	for(auto i: graph[node]) {
-		// if nbr is not visited
-		if(color[i] == 0) {
-			bool prob = dfs_helper(graph, i, node visited, 3 - color);
-			if(prob == false)
+bool dfs_helper(vector<int> graph[],int node,int *visited,int parent, int color){
+	//come to node
+	visited[node] = color; //1 or 2, both mean visited
+
+	for(auto nbr : graph[node]){
+
+		if(visited[nbr]==0){
+			int subprob = dfs_helper(graph,nbr,visited,node,3-color);
+			
+			if(subprob==false){
 				return false;
+			}
+
 		}
-		else if(i != parent and color = visited[i])
+		else if(nbr!=parent and color==visited[nbr]){
 			return false;
+		}
 
 	}
 	return true;
 }
 
-// is given graph bipartite
-bool dfs(vector<vector<int>> graph, int n) {
-	int visited[n] = {0} // 0 -> not visited, 1 -> color1, 2 -> color2
-
-	// Assuming there's only one connected component
-	int color = 1;
-	dfs_helper(graph, 0, visited, color);
+bool bipartite_helper(vector<vector<int>> graph, int node, int *visited, int parent, int color) {
+	visited[node] = color;
+	for(auto nbr: graph[node]) {
+		if(visited[nbr] == 0) {
+			int subprob = bipartite_helper(graph, nbr, visited, node, 3 - color);
+			if(!subprob)
+				return false;
+		} else if(nbr != parent and color == visited[nbr])
+		return false;
+	}
+	return true;
 }
 
+bool isBipartite(vector<vector<int>> graph) {
+	int n = graph.size();
+	int visited[n] = {0};
+	int color = 1;
+	int ans = bipartite_helper(graph, 0, visited, -1, color);
+	return ans;
+}
+
+
+bool dfs(vector<int> graph[],int N){
+
+	int visited[N] = {0};  // 0- Not Visited, 1 - Visited Color is 1, 2 - Visted Color 2
+
+	int color = 1;
+	int ans = dfs_helper(graph,0,visited,-1,color);
+	//later one
+
+	//colors
+	for(int i=0;i<N;i++){
+		cout<<i<<" - Color "<<visited[i] <<endl;
+	}
+
+	//
+	return ans;
+}
 int main(int argc, char const *argv[]) {
 	int n, m;
 	cin >> n >> m;
-	vector<vector<int>> graph(n);
+	vector<int> graph[n];
 	while(m--) {
 		int x, y;
 		cin >> x >> y;
@@ -56,6 +91,9 @@ int main(int argc, char const *argv[]) {
 
 	// BFS or DFS by coloring the nodes
 	// if current node has color 1 then it's all neighbouring nodes should have color 2
-
+	if(dfs(graph, n))
+		cout << "Bipartite";
+	else
+		cout << "not a bipartite";
 	return 0;
 }

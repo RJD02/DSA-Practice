@@ -1,27 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool sumExists(int i, vector<int> v, int sum) {
-	if(sum == 0)
-		return true;
-	if(i == v.size())
-		return false;
-	return sumExists(i + 1, v, sum - v[i]) + sumExists(i + 1, v, sum);
+
+bool subsetSumExists(int index, vector<int> v, int sum, vector<vector<int>> &memo) {
+	if(index == -1)
+		return (sum == 0);
+	if(memo[index][sum] != -1)
+		return memo[index][sum];
+	bool ans = false;
+	if(sum >= v[index])
+		ans |= subsetSumExists(index - 1, v, sum - v[index], memo);
+	ans |= subsetSumExists(index - 1, v, sum, memo);
+	return (memo[index][sum] = ans);
 }
 
 void solve() {
 	int n, sum;
 	cin >> n >> sum;
 	vector<int> v(n);
-	for(int i = 0; i < n; i++)
+	vector<vector<int>> memo(n, vector<int>(sum, -1));
+	for (int i = 0; i < n; i++)
 		cin >> v[i];
-	cout << sumExists(0, v, sum) << endl;
+	cout << !subsetSumExists(n - 1, v, sum, memo) << endl;
 }
 
 int main() {
-	int n;
-	cin >> n;
-	while(n--)
+	int t;
+	cin >> t;
+	while (t--)
 		solve();
 	return 0;
 }
