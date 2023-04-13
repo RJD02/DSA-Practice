@@ -40,6 +40,12 @@ void first() {
 	cout << count << endl;
 }
 
+void third() {
+	string s;
+	cin >> s;
+	cout << s << endl;
+}
+
 int main() {
 	first();
 	return 0;

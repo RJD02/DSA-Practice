@@ -25,5 +25,7 @@ int main() {
 
 }
 
-
+void hello() {
+	cout << "Hello world" << endl;
+}
 
